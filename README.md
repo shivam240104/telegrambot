@@ -186,10 +186,10 @@ pom.xml
 
 
 ### 📝 Quiz Flow
-![Quiz Flow](screenshots/quiz-flow.png)
+![Quiz Flow](screenshots/quiz-flow.png.jpeg)
 
 ### 🛡️ Admin Controls
-![Admin Panel](screenshots/admin-panel.png)
+![Admin Panel](screenshots/admin-panel.png.jpeg)
 
 
 
