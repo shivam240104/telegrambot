@@ -1,82 +1,216 @@
-# 📘 Telegram Quiz Bot
+# 🤖 Telegram Quiz Bot
 
-## Project Overview
+A **production-ready Telegram Quiz Bot** built with **Java, Spring Boot, PostgreSQL, Docker**, and deployed on **Render Cloud**. The project demonstrates real-world backend engineering practices including **role-based access control, fault tolerance, CI/CD automation, containerization, and cloud deployment**.
 
-A Spring Boot based Telegram bot that allows users to take quizzes,
-answer questions, and track scores. Admins can create quizzes and manage
-questions. The system is Dockerized and deployed on cloud using Render.
+---
 
-## Technologies
+## 🚀 Live Demo
 
--   Java 21
--   Spring Boot 3
--   PostgreSQL
--   Spring Data JPA
--   Telegram Bot API
--   Resilience4j
--   Maven
--   Docker & Docker Compose
--   Render Cloud
--   GitHub
+* **Bot:** (https://t.me/Sin221_bot)
+* **Cloud Deployment:** (https://telegrambot-kh0o.onrender.com
 
-## Architecture
+)
 
-User → Telegram → Spring Boot → PostgreSQL
+---
 
-## Features
+## 🧩 Features
 
-### User
+### 👤 User Features
 
--   Take quiz
--   Answer questions
--   View score
+* Participate in quizzes
+* Receive instant feedback on answers
+* View quiz results
+* Safe validation for invalid inputs and session handling
 
-### Admin
+### 🛡️ Admin Features (Limited)
 
--   Create quiz
--   Add questions
--   Delete quizzes
+* Create and manage quizzes
+* Add and edit questions
+* Activate / deactivate quizzes
+* Cannot promote other admins (security boundary)
 
-### System
+### 👑 Super Admin Features
 
--   Circuit Breaker
--   Auto cleanup sessions
--   Secure secrets using environment variables
--   Docker deployment
+* All admin capabilities
+* Promote new admins
+* Full control over quiz management and bot configuration
 
-## Run Locally
+> This hierarchical role model prevents misuse and ensures secure privilege boundaries.
 
-``` bash
-mvn clean package -DskipTests
+---
+
+## 🔐 Role-Based Access Control (RBAC)
+
+| Role        | Permissions                  |
+| ----------- | ---------------------------- |
+| User        | Take quizzes only            |
+| Admin       | Manage quizzes and questions |
+| Super Admin | Manage admins + full access  |
+
+Authorization rules are enforced at the service layer to prevent unauthorized actions.
+
+---
+
+## ⚙️ Error Handling & Reliability
+
+The bot is designed to remain stable even during failures:
+
+* ✅ Centralized exception handling using custom exceptions
+* ✅ Graceful degradation with **Resilience4j Circuit Breaker**
+* ✅ Validation checks for invalid quiz flows
+* ✅ Safe session cleanup to avoid memory leaks
+* ✅ User-friendly error messages instead of crashes
+* ✅ Database connection recovery handling
+
+This ensures high availability and predictable behavior in production.
+
+---
+
+## 🏗️ System Architecture
+
+```
+User (Telegram)
+   │
+   ▼
+Telegram Bot API
+   │
+   ▼
+Spring Boot Application (Docker)
+   │
+   ├── Service Layer
+   ├── Repository Layer (JPA)
+   └── Security / Validation
+   │
+   ▼
+PostgreSQL Database (Render)
+```
+
+* Stateless backend for horizontal scalability
+* Persistent data stored in PostgreSQL
+* Environment-based configuration
+
+---
+
+## 🐳 Docker Architecture
+
+* Multi-stage Docker build
+* Lightweight runtime image
+* Containerized app ensures consistent deployments
+
+### Run Locally
+
+```bash
 docker compose up --build
 ```
 
-## Dockerfile
+---
 
-``` dockerfile
-FROM eclipse-temurin:21-jdk
-WORKDIR /app
-COPY target/*.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+## 🌍 Deployment
+
+* Hosted on **Render Cloud**
+* Docker image built automatically
+* Environment variables configured securely
+* PostgreSQL provisioned as managed database
+
+---
+
+## 🔄 CI/CD Pipeline
+
+* GitHub Actions pipeline
+* Automatic build on push
+* Docker image validation
+* Prevents broken deployments
+
+---
+
+## 🧪 Tech Stack
+
+| Layer            | Technology      |
+| ---------------- | --------------- |
+| Language         | Java 21         |
+| Framework        | Spring Boot     |
+| Database         | PostgreSQL      |
+| ORM              | Spring Data JPA |
+| Resilience       | Resilience4j    |
+| Containerization | Docker          |
+| CI/CD            | GitHub Actions  |
+| Cloud            | Render          |
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file locally:
+
+```
+BOT_TOKEN=your_bot_token
+BOT_USERNAME=your_bot_username
+DB_URL=jdbc:postgresql://host:port/db
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
 ```
 
-## Security
+> Never commit real secrets to GitHub.
 
--   Secrets stored in .env
--   .env ignored by git
--   Environment variables used in production
+---
 
-## Deployment
+## 📂 Project Structure
 
--   Push code to GitHub
--   Create Render Web Service
--   Add environment variables
--   Deploy using Docker
+```
+src/
+ ├── controller/
+ ├── service/
+ ├── repository/
+ ├── model/
+ ├── config/
+ └── exception/
+Dockerfile
+docker-compose.yml
+pom.xml
+```
 
-## Future Improvements
+---
 
--   Leaderboard
--   Redis cache
--   Admin dashboard
--   Kubernetes deployment
+## 🧠 Key Learnings
+
+* Designing secure role-based systems
+* Building fault-tolerant services
+* Docker networking and image optimization
+* Cloud deployment pipelines
+* Debugging production failures
+* Secrets management best practices
+
+---
+
+## 📸 Screenshots & Demo
+
+
+### 📝 Quiz Flow
+![Quiz Flow](screenshots/quiz-flow.png)
+
+### 🛡️ Admin Controls
+![Admin Panel](screenshots/admin-panel.png)
+
+
+
+---
+
+## 📈 Future Enhancements
+
+* Leaderboards
+* Timer-based quizzes
+* Admin dashboard UI
+* Analytics and reporting
+* Webhooks monitoring
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first.
+
+---
+
+## 📄 License
+
+MIT License
