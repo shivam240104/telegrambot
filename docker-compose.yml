@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:15
+    container_name: quizbot-db
+    restart: always
+    environment:
+      POSTGRES_DB: quizbot_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devil0122
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  bot:
+    image: quizbot
+    container_name: quizbot-app
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+
+
+volumes:
+  pgdata:
